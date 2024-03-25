@@ -100,11 +100,13 @@ def end(b):
         print("__________________________________________________")
 
 
+def main():
+    print("one or two player?")
+    player = input("enter one or two")
+    if player == "two" or player == "2":
+        two_player()
+    else:
+        one_player()
 
-print("one or two player?")
-player = input("enter one or two")
-if player == "two" or player == "2":
-    two_player()
-else:
-    one_player()
-
+if __name__ == "__main__":
+    main()
