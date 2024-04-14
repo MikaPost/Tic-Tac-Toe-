@@ -1,59 +1,94 @@
+"""
+This file is for our new theme: tic tac toe
+Create by: Miqayel Postoyan
+Date: 15 April
+"""
 import random
 
-a = [
+board = [
     ["-", "-", "-"],
     ["-", "-", "-"],
     ["-", "-", "-"],
 ]
 
 
-def print_board(a):
-    for row in a:
+def print_board(board_data):
+    """
+        Function: print_board
+        Brief: print_board
+        Params: board_data (list): The 2D list representing the game board.
+        Return:	None
+    """
+    for row in board_data:
         print(" | ".join(row))
         print("-" * 9)
 
 
-def check(a):
+def check(board_data):
+    """
+        Function: check
+        Brief: checks the sheet to see if someone has won or not
+        Params: board_data (list): The 2D list representing the game board.
+        Return:	True and False
+    """
     for row in range(3):
-        if a[row][0] == a[row][1] == a[row][2] and a[row][0] in ["x", "o"]:
+        if board_data[row][0] == board_data[row][1] == board_data[row][2] and board_data[row][0] in ["x", "o"]:
             return True
     for col in range(3):
-        if a[0][col] == a[1][col] == a[2][col] and a[0][col] in ["x", "o"]:
+        if board_data[0][col] == board_data[1][col] == board_data[2][col] and board_data[0][col] in ["x", "o"]:
             return True
-    if a[0][0] == a[1][1] == a[2][2] and a[0][0] in ["x", "o"]:
+    if board_data[0][0] == board_data[1][1] == board_data[2][2] and board_data[0][0] in ["x", "o"]:
         return True
-    if a[0][2] == a[1][1] == a[2][0] and a[0][2] in ["x", "o"]:
+    if board_data[0][2] == board_data[1][1] == board_data[2][0] and board_data[0][2] in ["x", "o"]:
         return True
     return False
 
 
 
 def player1():
+    """
+        Function: player1
+        Brief: Allows Player X to make a move on the board.
+        Params: None
+        Return:	board (list)
+    """
     print("Player X")
     player1_column, player1_row = int(input("Enter column(1, 2, 3)")), int(input("Enter row(1, 2, 3)"))
-    if a[player1_column - 1][player1_row - 1] == "-":
-        a[player1_column - 1][player1_row - 1] = "x"
+    if board[player1_column - 1][player1_row - 1] == "-":
+        board[player1_column - 1][player1_row - 1] = "x"
     else:
         print("that box is already taken.Choose another")
         player1()
-    print_board(a)
-    return a
+    print_board(board)
+    return board
 
 
 def player2():
+    """
+        Function: player2
+        Brief: bot to make a move on the board.
+        Params: None
+        Return:	board (list)
+    """
     print("Player o")
     player2_column, player2_row = int(input("Enter o column(1, 2, 3)")), int(input("Enter row(1, 2, 3)"))
-    if a[player2_column - 1][player2_row - 1] == "-":
-        a[player2_column - 1][player2_row - 1] = "o"
+    if board[player2_column - 1][player2_row - 1] == "-":
+        board[player2_column - 1][player2_row - 1] = "o"
     else:
         print("that box is already taken.Choose another")
         player2()
-    print_board(a)
-    return a
+    print_board(board)
+    return board
 
 
 def two_player():
-    print_board(a)
+    """
+        Function: two_player
+        Brief: function if there are 2 players
+        Params: None
+        Return:	None
+    """
+    print_board(board)
     while True:
         b = player1()
         if check(b):
@@ -66,18 +101,30 @@ def two_player():
 
 
 def robot():
+    """
+        Function: robot
+        Brief: function if there are 1 player and 1 bot
+        Params: None
+        Return:	board (list)
+    """
     robot_column, robot_row = random.choice([1, 2, 3]), random.choice([1, 2, 3])
-    if a[robot_column - 1][robot_column - 1] == "-":
-        a[robot_row - 1][robot_row - 1] = "o"
+    if board[robot_column - 1][robot_column - 1] == "-":
+        board[robot_row - 1][robot_row - 1] = "o"
     else:
         robot()
     print("Player o(bot)")
-    print_board(a)
-    return a
+    print_board(board)
+    return board
 
 
 def one_player():
-    print_board(a)
+    """
+        Function: one_player
+        Brief: function if there are 1 player and 1 bot
+        Params: None
+        Return:	None
+    """
+    print_board(board)
     while True:
         b = player1()
         if check(b):
@@ -89,8 +136,14 @@ def one_player():
             break
 
 
-def end(b):
-    if b == "x":
+def end(winner):
+    """
+        Function: end
+        Brief: end of the game who wins?
+        Params: winner (x/o)
+        Return:	None
+    """
+    if winner == "x":
         print("__________________________________________________")
         print("x won!!!")
         print("__________________________________________________")
@@ -101,9 +154,13 @@ def end(b):
 
 
 def main():
+    """
+    Function: main
+    Brief: Entry point
+    """
     print("one or two player?")
     player = input("enter one or two")
-    if player == "two" or player == "2":
+    if player in "two" or player in "2":
         two_player()
     else:
         one_player()
